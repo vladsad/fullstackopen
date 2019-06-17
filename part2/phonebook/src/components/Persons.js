@@ -1,7 +1,7 @@
 import React from 'react'
 import personService from '../services/persons'
 
-const Persons = ({personsToShow, setPersonsToShow, setPersons, setNewFilterName}) => {
+const Persons = ({personsToShow, setPersonsToShow, setPersons, updateNotification}) => {
     const deletePerson = (id) => {
         if (window.confirm(`Delete ${personsToShow[id].name} ?`)) {
             personService
@@ -10,8 +10,12 @@ const Persons = ({personsToShow, setPersonsToShow, setPersons, setNewFilterName}
                 .then(persons => {
                     setPersons(persons)
                     setPersonsToShow(persons)
+                    updateNotification([`Removed ${personsToShow[id].name}`, 'success'])
                 })
-                .catch(error => console.log('error'))
+                .catch(() => 
+                    updateNotification([`Information of ${personsToShow[id].name} has already been removed from server`, 'error'])
+                )
+
         }
     }
 

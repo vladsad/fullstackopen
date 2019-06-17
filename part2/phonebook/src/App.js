@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [ persons, setPersons ] = useState([])
@@ -10,6 +11,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilterName, setNewFilterName ] = useState('')
+  const [ notification, setNotification ] = useState([null, 'default'])
 
   useEffect(() => {
     personService
@@ -20,9 +22,19 @@ const App = () => {
       })
   }, [])
 
+  const updateNotification = (message) => {
+    const [text, type] = message
+    setNotification([text, type])
+
+    setTimeout(() => {
+      setNotification([null, 'default'])
+    }, 5000)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification}/>
       <Filter 
         persons={persons} setPersonsToShow={setPersonsToShow} 
         newFilterName={newFilterName} setNewFilterName={setNewFilterName}/>
@@ -32,11 +44,13 @@ const App = () => {
         newName={newName} setNewName={setNewName}
         newNumber={newNumber} setNewNumber={setNewNumber}
         setPersonsToShow={setPersonsToShow} setNewFilterName={setNewFilterName}
+        updateNotification={updateNotification}
         />
       <h2>Numbers</h2>
       <Persons 
         personsToShow={personsToShow} setPersonsToShow={setPersonsToShow} 
-        setPersons={setPersons}
+        setPersons={setPersons} 
+        updateNotification={updateNotification}
       />
     </div>
   )

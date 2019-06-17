@@ -1,7 +1,7 @@
 import React from 'react'
 import personService from '../services/persons'
 
-const PersonForm = ({persons,newName,newNumber,setPersons,setNewName,setNewNumber,setPersonsToShow,setNewFilterName}) => {
+const PersonForm = ({persons,newName,newNumber,setPersons,setNewName,setNewNumber,setPersonsToShow,setNewFilterName,updateNotification}) => {
     const handleNameChange = (event) => {
         setNewName(event.target.value)
     }
@@ -40,8 +40,14 @@ const PersonForm = ({persons,newName,newNumber,setPersons,setNewName,setNewNumbe
                         setNewNumber('')
                         setPersons(persons)
                         setPersonsToShow(persons)
+                        updateNotification([`Updated ${newPerson.name}`, 'success'])
                     })
-                    .catch(error => console.log('error'))
+                    .catch(() => {
+                        updateNotification([`Information of ${newPerson.name} has already been removed from server`, 'error'])
+                        const rerenderedPesons = persons.filter(n => n.id !== check.index + 1)
+                        setPersons(rerenderedPesons)
+                        setPersonsToShow(rerenderedPesons)
+                    })
             }
         } else {
             personService
@@ -53,8 +59,14 @@ const PersonForm = ({persons,newName,newNumber,setPersons,setNewName,setNewNumbe
                     setNewNumber('')
                     setPersons(persons)
                     setPersonsToShow(persons)
+                    updateNotification([`Added ${newPerson.name}`, 'success'])
                 })
-                .catch(error => console.log('error'))
+                .catch(() => {
+                    updateNotification([`Information of ${newPerson.name} has already been removed from server`, 'error'])
+                    const rerenderedPesons = persons.filter(n => n.id !== check.index + 1)
+                    setPersons(rerenderedPesons)
+                    setPersonsToShow(rerenderedPesons)
+                })
         }
     }
 
