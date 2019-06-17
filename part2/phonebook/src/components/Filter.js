@@ -2,11 +2,11 @@ import React from 'react'
 
 const Filter = ({persons, newFilterName, setPersonsToShow, setNewFilterName}) => {
     const handleFilterNameChange = (event) => {
-        const filterName = event.target.value.trim()
+        const newValue = event.target.value
+        setNewFilterName(newValue)
         const filteredPersons = persons.filter((person) => {
-        return person.name.toLowerCase().includes(filterName.toLowerCase())
+        return person.name.toLowerCase().includes(newValue.toLowerCase().trim())
         })
-        setNewFilterName(filterName)
         setPersonsToShow(filteredPersons)
     }
 
