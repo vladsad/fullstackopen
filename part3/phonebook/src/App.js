@@ -28,7 +28,7 @@ const App = () => {
 
     setTimeout(() => {
       setNotification([null, 'default'])
-    }, 5000)
+    }, 10000)
   }
 
   return (

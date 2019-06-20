@@ -42,11 +42,15 @@ const PersonForm = ({persons,newName,newNumber,setPersons,setNewName,setNewNumbe
                         setPersonsToShow(persons)
                         updateNotification([`Updated ${newPerson.name}`, 'success'])
                     })
-                    .catch(() => {
-                        updateNotification([`Information of ${newPerson.name} has already been removed from server`, 'error'])
-                        const rerenderedPesons = persons.filter(n => n.id !== check.index + 1)
-                        setPersons(rerenderedPesons)
-                        setPersonsToShow(rerenderedPesons)
+                    .catch((error) => {
+                        if(error.response.data.name === 'ValidationError') {
+                            updateNotification([error.response.data.error, 'error'])
+                        } else {
+                            updateNotification([`Information of ${newPerson.name} has already been removed from server`, 'error'])
+                            const rerenderedPesons = persons.filter(n => n.id !== check.index + 1)
+                            setPersons(rerenderedPesons)
+                            setPersonsToShow(rerenderedPesons)
+                        }
                     })
             }
         } else {
@@ -61,11 +65,15 @@ const PersonForm = ({persons,newName,newNumber,setPersons,setNewName,setNewNumbe
                     setPersonsToShow(persons)
                     updateNotification([`Added ${newPerson.name}`, 'success'])
                 })
-                .catch(() => {
-                    updateNotification([`Information of ${newPerson.name} has already been removed from server`, 'error'])
-                    const rerenderedPesons = persons.filter(n => n.id !== check.index + 1)
-                    setPersons(rerenderedPesons)
-                    setPersonsToShow(rerenderedPesons)
+                .catch((error) => {
+                    if(error.response.data.name === 'ValidationError') {
+                        updateNotification([error.response.data.error, 'error'])
+                    } else {
+                        updateNotification([`Information of ${newPerson.name} has already been removed from server`, 'error'])
+                        const rerenderedPesons = persons.filter(n => n.id !== check.index + 1)
+                        setPersons(rerenderedPesons)
+                        setPersonsToShow(rerenderedPesons)
+                    }
                 })
         }
     }
