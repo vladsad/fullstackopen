@@ -9,6 +9,8 @@ const cors = require('cors')
 
 console.log('connecting to', config.MONGODB_URI)
 
+mongoose.set('useFindAndModify', false)
+
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
     console.log('connected to MongoDB')
