@@ -1,0 +1,10 @@
+post http://localhost:3003/api/blogs
+Content-Type: application/json
+
+ {
+    "title": "Testin title",
+    "author": "asdasdasdsad",
+    "url": "https://asdasdda.com/",
+    "likes": 145,
+    "userId": "5d1bc0f36b1a30124899b497"
+}
