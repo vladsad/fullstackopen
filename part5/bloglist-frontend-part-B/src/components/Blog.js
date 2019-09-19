@@ -43,6 +43,8 @@ const Blog = ({ blog, user, updateBlogsAfterDeleteOne }) => {
   }
 
   const removeButton = () => {
+    console.log(blog)
+    console.log(user)
     if('user' in blog && blog.user.username === user.username) {
       return (<button onClick={deleteBlog}>remove</button>)
     }
