@@ -2,18 +2,18 @@ const initialState = null
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case 'SET_NOTIFICATION':
-      return action.data
-    case 'REMOVE_NOTIFICATION':
-      return null
-    default:
-      return state
+  case 'SET_NOTIFICATION':
+    return action.data
+  case 'REMOVE_NOTIFICATION':
+    return null
+  default:
+    return state
   }
 }
 
 export const setNotification = (message, time) => {
   return async dispatch => {
-    await setTimeout(() => {  
+    await setTimeout(() => {
       dispatch({
         type: 'REMOVE_NOTIFICATION',
       })

@@ -19,8 +19,8 @@ const updateOne = async (object) => {
 }
 
 
-export default { 
-  getAll, 
+export default {
+  getAll,
   createNew,
   updateOne
 }
