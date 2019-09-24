@@ -2,10 +2,10 @@ const initialState = ''
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case 'SET_FILTER':
-      return action.data
-    default:
-      return state
+  case 'SET_FILTER':
+    return action.data
+  default:
+    return state
   }
 }
 
