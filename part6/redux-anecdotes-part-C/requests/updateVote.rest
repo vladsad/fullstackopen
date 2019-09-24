@@ -1,0 +1,6 @@
+put http://localhost:3001/anecdotes/47145
+Content-Type: application/json
+
+{
+  "votes": 777
+}
