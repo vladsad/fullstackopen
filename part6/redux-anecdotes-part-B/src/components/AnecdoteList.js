@@ -1,6 +1,6 @@
 import React from 'react'
 import { increaseVote } from '../reducers/anecdoteReducer'
-import { setNotification, removeNotification } from '../reducers/notificationReducer'
+import { setNotification, clearNotification } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 
 const AnecdoteList = (props) => {
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   increaseVote,
   setNotification,
-  removeNotification
+  removeNotification: clearNotification
 }
 
 const ConnectedAnecdoteList = connect(

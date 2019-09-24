@@ -18,7 +18,7 @@ export const setNotification = (message) => {
   }
 }
 
-export const removeNotification = () => {
+export const clearNotification = () => {
   return {
     type: 'REMOVE_NOTIFICATION'
   }
