@@ -1,25 +1,21 @@
 import loginService from '../services/login'
 
-const reducer = (state = [], action) => {
+const reducer = (state = null, action) => {
   switch(action.type) {
   case 'TRY_LOGIN':
     return action.data
-  // case 'UPDATE_BLOG':
-  //   return state.map(blog => blog.id !== action.data.id ? blog : action.data)
-  // case 'ADD_BLOG':
-  //   return [...state, action.data]
-  // case 'REMOVE_BLOG':
-  //   return state.filter(blog => blog.id !== action.data.id)
   case 'SET_LOGIN':
     return action.data
+  case 'UNSET_LOGIN':
+    return null
   default:
     return state
   }
 }
 
-export const tryLogin = () => {
+export const tryLogin = (user) => {
   return async dispatch => {
-    const loggedUser = await loginService.login()
+    const loggedUser = await loginService.login(user)
     dispatch({
       type: 'TRY_LOGIN',
       data: loggedUser,
@@ -32,6 +28,14 @@ export const setLogin = (user) => {
     dispatch({
       type: 'SET_LOGIN',
       data: user
+    })
+  }
+}
+
+export const loginOut = () => {
+  return async dispatch => {
+    dispatch({
+      type: 'UNSET_LOGIN',
     })
   }
 }

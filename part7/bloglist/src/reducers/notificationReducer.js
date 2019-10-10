@@ -1,6 +1,4 @@
-const initialState = null
-
-const reducer = (state = initialState, action) => {
+const reducer = (state = null, action) => {
   switch(action.type) {
   case 'SET_NOTIFICATION':
     return action.data
@@ -21,6 +19,14 @@ export const setNotification = (message, time) => {
     dispatch({
       type: 'SET_NOTIFICATION',
       data: message,
+    })
+  }
+}
+
+export const removeNotification = () => {
+  return dispatch => {
+    dispatch({
+      type: 'REMOVE_NOTIFICATION',
     })
   }
 }
