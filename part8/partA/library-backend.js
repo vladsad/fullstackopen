@@ -149,22 +149,34 @@ const resolvers = {
       return _books
     },
     allAuthors: () => {
-      const _authors = [...authors]
-      return books.reduce((acc,val,index,array) => {
-        for(let i=0; i<authors.length;i++) {
-          if(val.author === authors[i].name) {
-            acc[i].bookCount = acc[i].bookCount ? acc[i].bookCount + 1 : 1
-            return acc
-          }
+      const _authors =  books.reduce((acc,val,index,array) => {
+        if(val.author in acc) {
+          acc[val.author]++
+          return acc
         }
-        acc.push({
-          'name': val.author,
-          'born': null,
-          'bookCount': 1,
-          'id': uuid()
-        })
+        acc[val.author] = 1
         return acc
-      }, _authors)
+      }, {})
+      
+      const result = [...authors]
+      
+      for (var author in _authors) {
+        let index = authors.findIndex((el, ind) => {
+          return el.name === author
+        })
+        if(index !== -1) {
+          result[index] = {...result[index], 'bookCount': _authors[author]}
+        } else {
+          result.push({
+            'name': author,
+            'born': null,
+            'id': uuid(),
+            'bookCount': _authors[author]
+          })
+        }
+      }
+
+      return result
 
       // return books.reduce((acc, val, index, array)=>{
       //   for(let i = 0; i < acc.length; i++ ) {
