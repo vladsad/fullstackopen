@@ -2,18 +2,24 @@ import React, {useState} from 'react'
 
 const Authors = (props) => {
 
-  const [name, setName] = useState('')
+  const [name, setName] = useState({
+    'value': ''
+  })
   const [born, setBorn] = useState('')
 
   const submit = async (e) => {
     e.preventDefault()
 
     await props.editAuthor({
-      variables: { name, setBornTo: +born}
+      variables: { name: name.value, setBornTo: +born}
     })
 
     setName('')
     setBorn('')
+  }
+
+  const handleChange = (event) => {
+    setName({value: event.target.value});
   }
 
   if (!props.show) {
@@ -50,13 +56,16 @@ const Authors = (props) => {
 
       <h3>Set birthyear</h3>
       <form onSubmit={submit}>
-        <div>
+        <label>
           name
-          <input
-            value={name}
-            onChange={({ target }) => setName(target.value)}
-          />
-        </div>
+          <select value={name.value} onChange={handleChange}>
+            {
+              props.authors.data.allAuthors.map((a,i) => {
+                return <option key={i} value={a.name}>{a.name}</option>
+              })
+            }
+          </select>
+        </label>
         <div>
           born
           <input
